@@ -85,7 +85,7 @@ function checkCookie(adminname){
 <div class="backone"></div>
 <div class="backtwo"></div>
 <div class="login">
-    <H3 style="text-align:center;margin-top:20PX;">景区门票管理</H3>
+    <H3 style="text-align:center;margin-top:20PX;">景区门票管理2</H3>
     <form name="form" class="form-horizontal"  method="post" action="admin.jsp" >
 	  <div class="form-group" style="margin-top:20px;margin-left:30px;width:100%;height:75px;position:relative;">
 	    
