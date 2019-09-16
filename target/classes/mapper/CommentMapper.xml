@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.crud.dao.CommentMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.crud.bean.Comment">
+    <id column="comment_id" jdbcType="INTEGER" property="commentId" />
+    <result column="scenic_id" jdbcType="INTEGER" property="scenicId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="flag" jdbcType="INTEGER" property="flag" />
+    <result column="visitor_content" jdbcType="VARCHAR" property="visitorContent" />
+    <result column="admin_content" jdbcType="VARCHAR" property="adminContent" />
+    <result column="comment_time" jdbcType="VARCHAR" property="commentTime" />
+    <result column="wheel_img_one" jdbcType="VARCHAR" property="wheelImgOne" />
+    <result column="scenic_name" jdbcType="VARCHAR" property="scenicName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    comment_id, scenic_id, user_name, user_id, flag, visitor_content, admin_content, 
+    comment_time, wheel_img_one, scenic_name
+  </sql>
+  <select id="selectByExample" parameterType="com.atguigu.crud.bean.CommentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from comment
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.atguigu.crud.bean.CommentExample">
+    delete from comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.crud.bean.Comment">
+    insert into comment (comment_id, scenic_id, user_name, 
+      user_id, flag, visitor_content, 
+      admin_content, comment_time, wheel_img_one, 
+      scenic_name)
+    values (#{commentId,jdbcType=INTEGER}, #{scenicId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{flag,jdbcType=INTEGER}, #{visitorContent,jdbcType=VARCHAR}, 
+      #{adminContent,jdbcType=VARCHAR}, #{commentTime,jdbcType=VARCHAR}, #{wheelImgOne,jdbcType=VARCHAR}, 
+      #{scenicName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.crud.bean.Comment">
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commentId != null">
+        comment_id,
+      </if>
+      <if test="scenicId != null">
+        scenic_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="visitorContent != null">
+        visitor_content,
+      </if>
+      <if test="adminContent != null">
+        admin_content,
+      </if>
+      <if test="commentTime != null">
+        comment_time,
+      </if>
+      <if test="wheelImgOne != null">
+        wheel_img_one,
+      </if>
+      <if test="scenicName != null">
+        scenic_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commentId != null">
+        #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicId != null">
+        #{scenicId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="visitorContent != null">
+        #{visitorContent,jdbcType=VARCHAR},
+      </if>
+      <if test="adminContent != null">
+        #{adminContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentTime != null">
+        #{commentTime,jdbcType=VARCHAR},
+      </if>
+      <if test="wheelImgOne != null">
+        #{wheelImgOne,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicName != null">
+        #{scenicName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.atguigu.crud.bean.CommentExample" resultType="java.lang.Long">
+    select count(*) from comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update comment
+    <set>
+      <if test="record.commentId != null">
+        comment_id = #{record.commentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicId != null">
+        scenic_id = #{record.scenicId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.flag != null">
+        flag = #{record.flag,jdbcType=INTEGER},
+      </if>
+      <if test="record.visitorContent != null">
+        visitor_content = #{record.visitorContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminContent != null">
+        admin_content = #{record.adminContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentTime != null">
+        comment_time = #{record.commentTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wheelImgOne != null">
+        wheel_img_one = #{record.wheelImgOne,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicName != null">
+        scenic_name = #{record.scenicName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update comment
+    set comment_id = #{record.commentId,jdbcType=INTEGER},
+      scenic_id = #{record.scenicId,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      flag = #{record.flag,jdbcType=INTEGER},
+      visitor_content = #{record.visitorContent,jdbcType=VARCHAR},
+      admin_content = #{record.adminContent,jdbcType=VARCHAR},
+      comment_time = #{record.commentTime,jdbcType=VARCHAR},
+      wheel_img_one = #{record.wheelImgOne,jdbcType=VARCHAR},
+      scenic_name = #{record.scenicName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.crud.bean.Comment">
+    update comment
+    <set>
+      <if test="scenicId != null">
+        scenic_id = #{scenicId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="visitorContent != null">
+        visitor_content = #{visitorContent,jdbcType=VARCHAR},
+      </if>
+      <if test="adminContent != null">
+        admin_content = #{adminContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentTime != null">
+        comment_time = #{commentTime,jdbcType=VARCHAR},
+      </if>
+      <if test="wheelImgOne != null">
+        wheel_img_one = #{wheelImgOne,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicName != null">
+        scenic_name = #{scenicName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.crud.bean.Comment">
+    update comment
+    set scenic_id = #{scenicId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      flag = #{flag,jdbcType=INTEGER},
+      visitor_content = #{visitorContent,jdbcType=VARCHAR},
+      admin_content = #{adminContent,jdbcType=VARCHAR},
+      comment_time = #{commentTime,jdbcType=VARCHAR},
+      wheel_img_one = #{wheelImgOne,jdbcType=VARCHAR},
+      scenic_name = #{scenicName,jdbcType=VARCHAR}
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,195 @@
+@charset "UTF-8";
+
+.container{
+	width:100%;
+}
+
+
+
+
+.touch_bg:hover{
+  background:#9ACD32;
+}
+
+.navbar-default .navbar-nav>li>a{
+	color:white;
+}
+
+.navbar-default .navbar-nav>li>a:hover{
+	color:orange;
+}
+
+.navbar-default .navbar-nav>li{
+	padding:3px 23px 3px 23px;
+}
+
+.middleleft_p1{
+	font-size:1.3em;
+	color:	#1E90FF;
+}
+
+.middleleft_p2{
+	font-size:1em;
+	color:DimGray;
+	margin:0 0 0 2px;
+}
+
+.middleleft_p2:hover{
+	color:orange;
+}
+
+.middleright1{
+    
+	width:73%;
+	height:50px;
+}
+
+.middleright2{
+	width:73%;
+	height:40px;
+}
+
+.middleright2 p{
+	font-size:1.1em;
+	color:DimGray;
+	position:relative;
+	left:8%;
+}
+
+.middleright2 a{
+	color:DimGray;
+}
+
+.middleright2 a:hover{
+	color:#FF4500;
+}
+
+.carousel1{
+	position:relative;
+	width:73%;
+}
+
+.middlecenter{
+	width:100%;
+	height:400px;
+}
+
+.hot1{
+	font-size:2.1em;
+	
+	position:relative;
+	left:5%;
+	top:22%;
+}
+
+.hot2{
+	font-size:1em;
+	color:DimGray;
+	position:relative;
+	left:8%;
+	top:22%
+}
+
+.middlecenter1{
+	width:100%;
+	height:70px;
+}
+
+.middlecenter2{
+	width:100%;
+	height:310px;
+	position:relateive;
+}
+
+.middlecenter2box{
+	position:relative;
+	width:20%;
+	height:300px;
+	float:left;
+	
+}
+
+
+.middlecenter2 a{
+	 text-decoration: none; 
+}
+
+.middlecenter2box:hover{
+	border:2px solid orange;
+}
+
+.middlecenter2box img{
+	width:277px;
+	height:160px;
+	margin:10px 10px  6px  7px;
+}
+
+.p1{
+	color:black;
+	font-size:1.1em;
+}
+
+.p2{
+	color:orange;
+	font-size:0.9em;
+}
+
+.p3{
+	position:relative;
+	left:32%;
+	color:orange;
+	font-size:1.5em;	
+}
+
+.buttom{
+	background-color:#F5F5F5;
+	width:100%;
+	height:430px;
+}
+
+/* .buttom1{
+	height:340px;
+	position:relative;
+	left:5%;
+	width:85%;
+} */
+
+.buttom2{
+	/* background-color:red; */
+	height:300px;
+	position:relative;
+	float:left;
+	width:40%;/*506*/
+}
+
+.buttom2 img{
+	margin:15px 15px 15px 15px;
+}
+
+.buttom3{
+	position:relative;
+	float:left;
+	width:330px;
+	height:150px;
+	margin:5px;
+}
+
+.buttomimg{
+	margin:10px 15px 10px 15px;
+	
+}
+
+/*476 330 	*/
+
+.foot{
+	background-color:black;
+	height:150px;
+	clear:both;
+}
+
+.foot p{
+	color:white;
+	font-size:1.2em;
+	position:relative;
+	top:65px;
+}

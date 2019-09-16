@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+.container{
+	width:100%;
+	height:720px;
+}
+
+.backone{
+	width:100%;
+	height:50%;
+	background-color:#F0FFFF;
+	float:left;
+
+	
+}
+
+.backtwo{
+	width:100%;
+	background-color:#EBEBEB;
+	height:50%;
+	float:right;
+}
+
+.login{
+	width:28%;
+	height:55%;
+	background-color:white;
+	position:absolute;
+	left:36%;
+	top:22%;
+	z-index:1;
+	
+}
+
+.form-control-feedback{
+	right:5%;
+	margin-top:3%;
+}
+

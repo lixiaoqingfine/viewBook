@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.crud.dao.OrderinfoMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.crud.bean.Orderinfo">
+    <id column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="comment_id" jdbcType="INTEGER" property="commentId" />
+    <result column="scenic_name" jdbcType="VARCHAR" property="scenicName" />
+    <result column="scenic_img" jdbcType="VARCHAR" property="scenicImg" />
+    <result column="ticket_num" jdbcType="INTEGER" property="ticketNum" />
+    <result column="ticket_price" jdbcType="INTEGER" property="ticketPrice" />
+    <result column="ticket_category" jdbcType="VARCHAR" property="ticketCategory" />
+    <result column="order_comment" jdbcType="BIT" property="orderComment" />
+    <result column="order_used" jdbcType="BIT" property="orderUsed" />
+    <result column="orderbuild_time" jdbcType="VARCHAR" property="orderbuildTime" />
+    <result column="orderuse_time" jdbcType="VARCHAR" property="orderuseTime" />
+    <result column="visitor_name" jdbcType="VARCHAR" property="visitorName" />
+    <result column="visitor_phone" jdbcType="VARCHAR" property="visitorPhone" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    order_id, user_id, comment_id, scenic_name, scenic_img, ticket_num, ticket_price, 
+    ticket_category, order_comment, order_used, orderbuild_time, orderuse_time, visitor_name, 
+    visitor_phone, code
+  </sql>
+  <select id="selectByExample" parameterType="com.atguigu.crud.bean.OrderinfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from orderinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from orderinfo
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from orderinfo
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.atguigu.crud.bean.OrderinfoExample">
+    delete from orderinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.crud.bean.Orderinfo">
+    insert into orderinfo (order_id, user_id, comment_id, 
+      scenic_name, scenic_img, ticket_num, 
+      ticket_price, ticket_category, order_comment, 
+      order_used, orderbuild_time, orderuse_time, 
+      visitor_name, visitor_phone, code
+      )
+    values (#{orderId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{commentId,jdbcType=INTEGER}, 
+      #{scenicName,jdbcType=VARCHAR}, #{scenicImg,jdbcType=VARCHAR}, #{ticketNum,jdbcType=INTEGER}, 
+      #{ticketPrice,jdbcType=INTEGER}, #{ticketCategory,jdbcType=VARCHAR}, #{orderComment,jdbcType=BIT}, 
+      #{orderUsed,jdbcType=BIT}, #{orderbuildTime,jdbcType=VARCHAR}, #{orderuseTime,jdbcType=VARCHAR}, 
+      #{visitorName,jdbcType=VARCHAR}, #{visitorPhone,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.crud.bean.Orderinfo">
+    insert into orderinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="commentId != null">
+        comment_id,
+      </if>
+      <if test="scenicName != null">
+        scenic_name,
+      </if>
+      <if test="scenicImg != null">
+        scenic_img,
+      </if>
+      <if test="ticketNum != null">
+        ticket_num,
+      </if>
+      <if test="ticketPrice != null">
+        ticket_price,
+      </if>
+      <if test="ticketCategory != null">
+        ticket_category,
+      </if>
+      <if test="orderComment != null">
+        order_comment,
+      </if>
+      <if test="orderUsed != null">
+        order_used,
+      </if>
+      <if test="orderbuildTime != null">
+        orderbuild_time,
+      </if>
+      <if test="orderuseTime != null">
+        orderuse_time,
+      </if>
+      <if test="visitorName != null">
+        visitor_name,
+      </if>
+      <if test="visitorPhone != null">
+        visitor_phone,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="commentId != null">
+        #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicName != null">
+        #{scenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicImg != null">
+        #{scenicImg,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketNum != null">
+        #{ticketNum,jdbcType=INTEGER},
+      </if>
+      <if test="ticketPrice != null">
+        #{ticketPrice,jdbcType=INTEGER},
+      </if>
+      <if test="ticketCategory != null">
+        #{ticketCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="orderComment != null">
+        #{orderComment,jdbcType=BIT},
+      </if>
+      <if test="orderUsed != null">
+        #{orderUsed,jdbcType=BIT},
+      </if>
+      <if test="orderbuildTime != null">
+        #{orderbuildTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderuseTime != null">
+        #{orderuseTime,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorName != null">
+        #{visitorName,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorPhone != null">
+        #{visitorPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.atguigu.crud.bean.OrderinfoExample" resultType="java.lang.Long">
+    select count(*) from orderinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update orderinfo
+    <set>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.commentId != null">
+        comment_id = #{record.commentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicName != null">
+        scenic_name = #{record.scenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicImg != null">
+        scenic_img = #{record.scenicImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ticketNum != null">
+        ticket_num = #{record.ticketNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.ticketPrice != null">
+        ticket_price = #{record.ticketPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.ticketCategory != null">
+        ticket_category = #{record.ticketCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderComment != null">
+        order_comment = #{record.orderComment,jdbcType=BIT},
+      </if>
+      <if test="record.orderUsed != null">
+        order_used = #{record.orderUsed,jdbcType=BIT},
+      </if>
+      <if test="record.orderbuildTime != null">
+        orderbuild_time = #{record.orderbuildTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderuseTime != null">
+        orderuse_time = #{record.orderuseTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visitorName != null">
+        visitor_name = #{record.visitorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visitorPhone != null">
+        visitor_phone = #{record.visitorPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null">
+        code = #{record.code,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update orderinfo
+    set order_id = #{record.orderId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      comment_id = #{record.commentId,jdbcType=INTEGER},
+      scenic_name = #{record.scenicName,jdbcType=VARCHAR},
+      scenic_img = #{record.scenicImg,jdbcType=VARCHAR},
+      ticket_num = #{record.ticketNum,jdbcType=INTEGER},
+      ticket_price = #{record.ticketPrice,jdbcType=INTEGER},
+      ticket_category = #{record.ticketCategory,jdbcType=VARCHAR},
+      order_comment = #{record.orderComment,jdbcType=BIT},
+      order_used = #{record.orderUsed,jdbcType=BIT},
+      orderbuild_time = #{record.orderbuildTime,jdbcType=VARCHAR},
+      orderuse_time = #{record.orderuseTime,jdbcType=VARCHAR},
+      visitor_name = #{record.visitorName,jdbcType=VARCHAR},
+      visitor_phone = #{record.visitorPhone,jdbcType=VARCHAR},
+      code = #{record.code,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.crud.bean.Orderinfo">
+    update orderinfo
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="commentId != null">
+        comment_id = #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicName != null">
+        scenic_name = #{scenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicImg != null">
+        scenic_img = #{scenicImg,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketNum != null">
+        ticket_num = #{ticketNum,jdbcType=INTEGER},
+      </if>
+      <if test="ticketPrice != null">
+        ticket_price = #{ticketPrice,jdbcType=INTEGER},
+      </if>
+      <if test="ticketCategory != null">
+        ticket_category = #{ticketCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="orderComment != null">
+        order_comment = #{orderComment,jdbcType=BIT},
+      </if>
+      <if test="orderUsed != null">
+        order_used = #{orderUsed,jdbcType=BIT},
+      </if>
+      <if test="orderbuildTime != null">
+        orderbuild_time = #{orderbuildTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderuseTime != null">
+        orderuse_time = #{orderuseTime,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorName != null">
+        visitor_name = #{visitorName,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorPhone != null">
+        visitor_phone = #{visitorPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.crud.bean.Orderinfo">
+    update orderinfo
+    set user_id = #{userId,jdbcType=INTEGER},
+      comment_id = #{commentId,jdbcType=INTEGER},
+      scenic_name = #{scenicName,jdbcType=VARCHAR},
+      scenic_img = #{scenicImg,jdbcType=VARCHAR},
+      ticket_num = #{ticketNum,jdbcType=INTEGER},
+      ticket_price = #{ticketPrice,jdbcType=INTEGER},
+      ticket_category = #{ticketCategory,jdbcType=VARCHAR},
+      order_comment = #{orderComment,jdbcType=BIT},
+      order_used = #{orderUsed,jdbcType=BIT},
+      orderbuild_time = #{orderbuildTime,jdbcType=VARCHAR},
+      orderuse_time = #{orderuseTime,jdbcType=VARCHAR},
+      visitor_name = #{visitorName,jdbcType=VARCHAR},
+      visitor_phone = #{visitorPhone,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>

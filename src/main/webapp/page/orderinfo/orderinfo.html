@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+ li a:hover {
+    background-color: #9BCD9B;
+} 
+</style>
+</head>
+<body>
+<!-- 表格上面的button -->
+      <div class="row">
+		    <div class="col-md-4 col-md-offset-0">        
+				    <div class="input-group">
+				      <input type="text" class="form-control"  id="order_find">
+				      
+				        <button class="btn btn-warning" type="button" id="order_find_btn">搜索</button>
+				 
+				    </div>	
+		    </div>
+			
+			
+		</div>	
+
+<ul style="list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: 	#EAEAEA;">
+  <li style="float: left;"><a style="display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;"class="active" href="#home">全部</a></li>
+  <li style="float: left;"><a  style="display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;"href="#news" id="replay">待使用</a></li>
+  <li style="float: left;"><a style="display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;"href="#contact" id="used">已使用</a></li>
+  <li style="float: left;"><a style="display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;" href="#about" id="comment">待评价</a></li>
+    <li style="float: left;"><a style="display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;" href="#about" id="commented">已评价</a></li>
+</ul>
+
+<!-- 显示表格数据 -->
+<div class="row">
+
+    <div class="col-md-12">
+      <div style="overflow:scroll;">
+        <table class="table table-hover " id="order_table" style="min-width:1300px;">
+            <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" id="check_all"/>
+                </th>
+                <th>订单编号</th>
+                <th>用户昵称</th>
+                <th>景点名称</th>
+                <th>购票数量</th>
+                <th>票价</th>
+                <th>待评论/已评论</th>
+                <th>待使用/已使用</th>
+                <th>创建时间</th>
+                <th>使用时间</th>
+                <th>游玩人</th>
+                <th>手机号</th>
+                <th>动态码</th>
+              
+                <th>操作</th>       
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+
+<!-- 显示分页信息 -->
+<div class="row">
+    <!-- 分页文字信息  -->
+    <div class="col-md-6" id="page_info_area1" style="margin:20px 0"></div>
+    <!-- 分页条信息 -->
+    <div class="col-md-6" id="page_nav_area1">
+
+    </div>
+</div> 
+<script>
+
+$(document).on("click",".replay_btn",function(){ 
+	
+	 update_order_used($(this).attr("edit1-id")); 
+});  
+
+$(document).on("click",".comment_btn",function(){ 
+	$("#commentModal #admincomment").val(""); 
+	 commentsearch($(this).attr("comment-id"));  
+	 $("#comment_btn").attr("comment-id",$(this).attr("comment-id"));
+	$("#commentModal").modal({
+		backdrop:"static"
+	});
+});  
+
+//单个删除
+$(document).on("click",".delete1_btn",function(){
+	//1、弹出是否确认删除对话框
+	var empName = $(this).parents("tr").find("td:eq(1)").text();
+	var orderId = $(this).attr("del1-id");
+	//alert($(this).parents("tr").find("td:eq(1)").text());
+	if(confirm("确认删除订单编号:【"+empName+"】吗？")){
+		 $.ajax({
+		url:"http://localhost:8080/scenic_book/deleteorder/"+orderId,
+		type:"DELETE",
+		success:function(result){
+			alert(result.msg);
+			//回到本页
+			to_page1(currentPage1);
+		}
+	});   
+		//确认，发送ajax请求删除即可
+		 
+	}
+});
+
+</script>
+</body>
+</html>

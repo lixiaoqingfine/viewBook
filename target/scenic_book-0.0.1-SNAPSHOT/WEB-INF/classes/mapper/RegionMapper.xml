@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.crud.dao.RegionMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.crud.bean.Region">
+    <id column="region_id" jdbcType="INTEGER" property="regionId" />
+    <result column="world_id" jdbcType="INTEGER" property="worldId" />
+    <result column="address_id" jdbcType="INTEGER" property="addressId" />
+    <result column="region_name" jdbcType="VARCHAR" property="regionName" />
+  </resultMap>
+  
+  <resultMap id="WithAddressResultMap" type="com.atguigu.crud.bean.Region">
+    <id column="region_id" jdbcType="INTEGER" property="regionId" />
+    <result column="world_id" jdbcType="INTEGER" property="worldId" />
+    <result column="address_id" jdbcType="INTEGER" property="addressId" />
+    <result column="region_name" jdbcType="VARCHAR" property="regionName" />
+     <!-- 指定联合查询出的地区名字的封装 -->
+    <association property="address" javaType="com.atguigu.crud.bean.Address">
+    	<id column="address_idd" property="addressIdd"/>
+    	<result column="address_name" property="addressName"/>
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    region_id, world_id, address_id, region_name
+  </sql>
+  
+  <sql id="WithAddress_Column_List">
+    e.region_id, e.world_id, e.address_id, e.region_name,d.address_idd,d.address_name,d.world_id
+  </sql>
+  <select id="selectByExample" parameterType="com.atguigu.crud.bean.RegionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from region
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <select id="selectByExampleWithAddress" parameterType="com.atguigu.crud.bean.RegionExample" resultMap="WithAddressResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="WithAddress_Column_List" />
+    from region e    left join address d on e.address_id=d.address_idd
+    
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from region
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByPrimaryKeyWidthAddress" parameterType="java.lang.Integer" resultMap="WithAddressResultMap">
+    select 
+    <include refid="WithAddress_Column_List" />
+    from region e
+    left join address d on e.`address_id`=d.`address_idd`
+    where e.region_id = #{regionId,jdbcType=INTEGER}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from region
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.atguigu.crud.bean.RegionExample">
+    delete from region
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.crud.bean.Region">
+    insert into region (region_id, world_id, address_id, 
+      region_name)
+    values (#{regionId,jdbcType=INTEGER}, #{worldId,jdbcType=INTEGER}, #{addressId,jdbcType=INTEGER}, 
+      #{regionName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.crud.bean.Region">
+    insert into region
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="regionId != null">
+        region_id,
+      </if>
+      <if test="worldId != null">
+        world_id,
+      </if>
+      <if test="addressId != null">
+        address_id,
+      </if>
+      <if test="regionName != null">
+        region_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="regionId != null">
+        #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="worldId != null">
+        #{worldId,jdbcType=INTEGER},
+      </if>
+      <if test="addressId != null">
+        #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="regionName != null">
+        #{regionName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.atguigu.crud.bean.RegionExample" resultType="java.lang.Long">
+    select count(*) from region
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update region
+    <set>
+      <if test="record.regionId != null">
+        region_id = #{record.regionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.worldId != null">
+        world_id = #{record.worldId,jdbcType=INTEGER},
+      </if>
+      <if test="record.addressId != null">
+        address_id = #{record.addressId,jdbcType=INTEGER},
+      </if>
+      <if test="record.regionName != null">
+        region_name = #{record.regionName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update region
+    set region_id = #{record.regionId,jdbcType=INTEGER},
+      world_id = #{record.worldId,jdbcType=INTEGER},
+      address_id = #{record.addressId,jdbcType=INTEGER},
+      region_name = #{record.regionName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.crud.bean.Region">
+    update region
+    <set>
+      <if test="worldId != null">
+        world_id = #{worldId,jdbcType=INTEGER},
+      </if>
+      <if test="addressId != null">
+        address_id = #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="regionName != null">
+        region_name = #{regionName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.crud.bean.Region">
+    update region
+    set world_id = #{worldId,jdbcType=INTEGER},
+      address_id = #{addressId,jdbcType=INTEGER},
+      region_name = #{regionName,jdbcType=VARCHAR}
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </update>
+</mapper>

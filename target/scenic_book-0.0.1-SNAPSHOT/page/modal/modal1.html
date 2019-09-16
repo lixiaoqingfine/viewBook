@@ -1,0 +1,47 @@
+
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">确定要退出登录吗?</h4>
+      </div>
+      <div class="modal-footer">
+       <a href="javascript:quit()" id="quitlogin" class="btn btn-primary">是</a>
+        <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+function setCookie(cname,cvalue,exdays){
+	var d = new Date();
+	d.setTime(d.getTime()+(exdays*24*60*60*1000));
+	var expires = "expires="+d.toGMTString();
+	document.cookie = cname+"="+cvalue+"; "+expires;
+}
+function getCookie(cname){
+	var name = cname + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0; i<ca.length; i++) {
+		var c = ca[i].trim();
+		if (c.indexOf(name)==0) { return c.substring(name.length,c.length); }
+	}
+	return "";
+}
+function checkCookie(){
+	var user=getCookie("username");
+	 if (user==""){
+		window.history.back(-1);
+	} 
+	}
+function quit(){
+	var user=getCookie("username");
+	setCookie("username",user,-30);
+	checkCookie();
+   }
+</script>
+<!--/modal-->

@@ -1,0 +1,868 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.crud.dao.ScenicMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.crud.bean.Scenic">
+    <id column="scenic_id" jdbcType="INTEGER" property="scenicId" />
+    <result column="world_id" jdbcType="INTEGER" property="worldId" />
+    <result column="region_id" jdbcType="INTEGER" property="regionId" />
+    <result column="address_id" jdbcType="INTEGER" property="addressId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="theme_id" jdbcType="INTEGER" property="themeId" />
+    <result column="is_cheap" jdbcType="BIT" property="isCheap" />
+    <result column="Is_recommend" jdbcType="BIT" property="isRecommend" />
+    <result column="search_num" jdbcType="INTEGER" property="searchNum" />
+    <result column="older_id" jdbcType="INTEGER" property="olderId" />
+    <result column="child_id" jdbcType="INTEGER" property="childId" />
+    <result column="adult_id" jdbcType="INTEGER" property="adultId" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="type_one" jdbcType="VARCHAR" property="typeOne" />
+    <result column="type_two" jdbcType="VARCHAR" property="typeTwo" />
+    <result column="type_three" jdbcType="VARCHAR" property="typeThree" />
+    <result column="scenic_name" jdbcType="VARCHAR" property="scenicName" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="wheel_img_one" jdbcType="VARCHAR" property="wheelImgOne" />
+    <result column="wheel_img_two" jdbcType="VARCHAR" property="wheelImgTwo" />
+    <result column="wheel_img_three" jdbcType="VARCHAR" property="wheelImgThree" />
+    <result column="wheel_img_four" jdbcType="VARCHAR" property="wheelImgFour" />
+    <result column="wheel_img_five" jdbcType="VARCHAR" property="wheelImgFive" />
+    <result column="scenicpresent_one" jdbcType="VARCHAR" property="scenicpresentOne" />
+    <result column="photo_one" jdbcType="VARCHAR" property="photoOne" />
+    <result column="scenicpresent_two" jdbcType="VARCHAR" property="scenicpresentTwo" />
+    <result column="photo_two" jdbcType="VARCHAR" property="photoTwo" />
+    <result column="photo_three" jdbcType="VARCHAR" property="photoThree" />
+    <result column="photo_four" jdbcType="VARCHAR" property="photoFour" />
+  </resultMap>
+  
+  <!-- 连表查询 联合adultticket表 -->
+  <resultMap id="WithAdultResultMap" type="com.atguigu.crud.bean.Scenic">
+    <id column="scenic_id" jdbcType="INTEGER" property="scenicId" />
+    <result column="world_id" jdbcType="INTEGER" property="worldId" />
+    <result column="region_id" jdbcType="INTEGER" property="regionId" />
+    <result column="address_id" jdbcType="INTEGER" property="addressId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="theme_id" jdbcType="INTEGER" property="themeId" />
+    <result column="is_cheap" jdbcType="BIT" property="isCheap" />
+    <result column="Is_recommend" jdbcType="BIT" property="isRecommend" />
+    <result column="search_num" jdbcType="INTEGER" property="searchNum" />
+    <result column="older_id" jdbcType="INTEGER" property="olderId" />
+    <result column="child_id" jdbcType="INTEGER" property="childId" />
+    <result column="adult_id" jdbcType="INTEGER" property="adultId" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="type_one" jdbcType="VARCHAR" property="typeOne" />
+    <result column="type_two" jdbcType="VARCHAR" property="typeTwo" />
+    <result column="type_three" jdbcType="VARCHAR" property="typeThree" />
+    <result column="scenic_name" jdbcType="VARCHAR" property="scenicName" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="wheel_img_one" jdbcType="VARCHAR" property="wheelImgOne" />
+    <result column="wheel_img_two" jdbcType="VARCHAR" property="wheelImgTwo" />
+    <result column="wheel_img_three" jdbcType="VARCHAR" property="wheelImgThree" />
+    <result column="wheel_img_four" jdbcType="VARCHAR" property="wheelImgFour" />
+    <result column="wheel_img_five" jdbcType="VARCHAR" property="wheelImgFive" />
+    <result column="scenicpresent_one" jdbcType="VARCHAR" property="scenicpresentOne" />
+    <result column="photo_one" jdbcType="VARCHAR" property="photoOne" />
+    <result column="scenicpresent_two" jdbcType="VARCHAR" property="scenicpresentTwo" />
+    <result column="photo_two" jdbcType="VARCHAR" property="photoTwo" />
+    <result column="photo_three" jdbcType="VARCHAR" property="photoThree" />
+    <result column="photo_four" jdbcType="VARCHAR" property="photoFour" />
+    <!-- 指定联合查询出的门票价格、销量字段的封装 -->
+    <association property="adultticket" javaType="com.atguigu.crud.bean.Adultticket">
+    	<id column="adult_id" property="adultId"/>
+    	<result column="sale_num" property="saleNum"/>
+    	<result column="price" property="price"/>
+    	<result column="category_name" property="categoryName"/>
+    	<result column="ticket_num" property="ticketNum"/>
+    </association>
+  </resultMap>
+  
+  <!-- 连表查询 联合所有表all -->
+  <resultMap id="WithAllResultMap" type="com.atguigu.crud.bean.Scenic">
+    <id column="scenic_id" jdbcType="INTEGER" property="scenicId" />
+    <result column="world_id" jdbcType="INTEGER" property="worldId" />
+    <result column="region_id" jdbcType="INTEGER" property="regionId" />
+    <result column="address_id" jdbcType="INTEGER" property="addressId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="theme_id" jdbcType="INTEGER" property="themeId" />
+    <result column="is_cheap" jdbcType="BIT" property="isCheap" />
+    <result column="Is_recommend" jdbcType="BIT" property="isRecommend" />
+    <result column="search_num" jdbcType="INTEGER" property="searchNum" />
+    <result column="older_id" jdbcType="INTEGER" property="olderId" />
+    <result column="child_id" jdbcType="INTEGER" property="childId" />
+    <result column="adult_id" jdbcType="INTEGER" property="adultId" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="type_one" jdbcType="VARCHAR" property="typeOne" />
+    <result column="type_two" jdbcType="VARCHAR" property="typeTwo" />
+    <result column="type_three" jdbcType="VARCHAR" property="typeThree" />
+    <result column="scenic_name" jdbcType="VARCHAR" property="scenicName" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="wheel_img_one" jdbcType="VARCHAR" property="wheelImgOne" />
+    <result column="wheel_img_two" jdbcType="VARCHAR" property="wheelImgTwo" />
+    <result column="wheel_img_three" jdbcType="VARCHAR" property="wheelImgThree" />
+    <result column="wheel_img_four" jdbcType="VARCHAR" property="wheelImgFour" />
+    <result column="wheel_img_five" jdbcType="VARCHAR" property="wheelImgFive" />
+    <result column="scenicpresent_one" jdbcType="VARCHAR" property="scenicpresentOne" />
+    <result column="photo_one" jdbcType="VARCHAR" property="photoOne" />
+    <result column="scenicpresent_two" jdbcType="VARCHAR" property="scenicpresentTwo" />
+    <result column="photo_two" jdbcType="VARCHAR" property="photoTwo" />
+    <result column="photo_three" jdbcType="VARCHAR" property="photoThree" />
+    <result column="photo_four" jdbcType="VARCHAR" property="photoFour" />
+    <!-- 指定联合查询出的成人门票的封装 -->
+    <association property="adultticket" javaType="com.atguigu.crud.bean.Adultticket">
+    	<id column="adult_id" property="adultId"/>
+    	<result column="sale_num" property="saleNum"/>
+    	<result column="price" property="price"/>
+    	<result column="category_name" property="categoryName"/>
+    	<result column="ticket_num" property="ticketNum"/>
+    </association>
+    <!-- 指定联合查询出的老人人门票的封装 -->
+     <association property="olderticket" javaType="com.atguigu.crud.bean.Olderticket">
+    	<id column="older_id" property="olderId"/>
+    	<result column="older_sale_num" property="olderSaleNum"/>
+    	<result column="older_price" property="olderPrice"/>
+    	<result column="older_category_name" property="olderCategoryName"/>
+    	<result column="older_ticket_num" property="olderTicketNum"/>
+    </association>
+      <!-- 指定联合查询出的儿童门票的封装 -->
+     <association property="childticket" javaType="com.atguigu.crud.bean.Childticket">
+    	<id column="child_id" property="childId"/>
+    	<result column="child_sale_num" property="childSaleNum"/>
+    	<result column="child_price" property="childPrice"/>
+    	<result column="child_category_name" property="childCategoryName"/>
+    	<result column="child_ticket_num" property="childTicketNum"/>
+    </association>
+      <!-- 指定联合查询出的world表的封装 -->
+     <association property="world" javaType="com.atguigu.crud.bean.World">
+    	<id column="world_id" property="worldId"/>
+    	<result column="world_name" property="worldName"/>
+    </association>
+       <!-- 指定联合查询出的region表的封装 -->
+     <association property="region" javaType="com.atguigu.crud.bean.Region">
+    	<id column="region_id" property="regionId"/>
+    	<result column="region_name" property="regionName"/>
+    </association>
+    <!-- 指定联合查询出的address表的封装 -->
+     <association property="address1" javaType="com.atguigu.crud.bean.Address">
+    	<id column="address_idd" property="addressIdd"/>
+    	<result column="address_name" property="addressName"/>
+    </association>
+        <!-- 指定联合查询出的theme表的封装 -->
+     <association property="theme" javaType="com.atguigu.crud.bean.Theme">
+    	<id column="theme_id" property="themeId"/>
+    	<result column="theme_name" property="themeName"/>
+    </association>
+    
+  </resultMap>
+  
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    scenic_id, world_id, region_id, address_id, address, theme_id, is_cheap, Is_recommend, 
+    search_num, older_id, child_id, adult_id, score, level, type_one, type_two, type_three, 
+    scenic_name, longitude, latitude, location, wheel_img_one, wheel_img_two, wheel_img_three, 
+    wheel_img_four, wheel_img_five, scenicpresent_one, photo_one, scenicpresent_two, 
+    photo_two, photo_three, photo_four
+  </sql>
+  
+   <!-- 连表查询adultticket表 -->
+   <sql id="Adult_Column_List">
+    e.scenic_id, e.world_id, e.region_id, e.address_id, e.address, e.theme_id, e.is_cheap, e.Is_recommend, 
+    e.search_num, e.older_id, e.child_id, e.adult_id, e.score, e.level, e.type_one, e.type_two, e.type_three, 
+    e.scenic_name, e.longitude, e.latitude, e.location,e.wheel_img_one, e.wheel_img_two, e.wheel_img_three, 
+    e.wheel_img_four, e.wheel_img_five, e.scenicpresent_one, e.photo_one, e.scenicpresent_two, 
+    e.photo_two, e.photo_three, e.photo_four,d.adult_id,d.price,d.sale_num,d.category_name,d.ticket_num
+  </sql>
+  
+     <!-- 连表查询all表 -->
+   <sql id="All_Column_List">
+    e.scenic_id, e.world_id, e.region_id, e.address_id, e.address, e.theme_id, e.is_cheap, e.Is_recommend, 
+    e.search_num, e.older_id, e.child_id, e.adult_id, e.score, e.level, e.type_one, e.type_two, e.type_three, 
+    e.scenic_name, e.longitude, e.latitude, e.location,e.wheel_img_one, e.wheel_img_two, e.wheel_img_three, 
+    e.wheel_img_four, e.wheel_img_five, e.scenicpresent_one, e.photo_one, e.scenicpresent_two, 
+    e.photo_two, e.photo_three, e.photo_four,d.adult_id,d.price,d.sale_num,d.category_name,d.ticket_num,
+    f.child_id,f.child_price,f.child_sale_num,f.child_category_name,f.child_ticket_num,g.older_id,g.older_price,g.older_sale_num,g.older_category_name,g.older_ticket_num,
+    h.region_id,h.region_name,j.world_id,j.world_name,p.address_idd,p.address_name,l.theme_id,l.theme_name
+  </sql>
+  
+  <select id="selectByExample" parameterType="com.atguigu.crud.bean.ScenicExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from scenic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+   <select id="selectByExampleOrder" parameterType="com.atguigu.crud.bean.ScenicExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from scenic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    
+      order by scenic_id DESC
+   
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from scenic
+    where scenic_id = #{scenicId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 连表查询adultticket表 -->
+  <select id="selectByExampleWithAdult" parameterType="com.atguigu.crud.bean.ScenicExample" resultMap="WithAdultResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Adult_Column_List" />
+    from scenic e
+    left join adultticket d on e.`adult_id`=d.`adult_id`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    
+      order by d.sale_num
+    
+  </select>
+  
+  <!-- 连表查询adultticket表 -->
+<select id="selectByPrimaryKeyWithAdult" parameterType="java.lang.Integer" resultMap="WithAdultResultMap">
+    select 
+    <include refid="Adult_Column_List" />
+     from scenic e
+    left join adultticket d on e.`adult_id`=d.`adult_id`
+    where scenic_id = #{scenicId,jdbcType=INTEGER}
+  </select>
+  
+  
+  <!-- 连表查询all表 -->
+  <select id="selectByExampleWithAll" parameterType="com.atguigu.crud.bean.ScenicExample" resultMap="WithAllResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="All_Column_List" />
+    from scenic e
+    left join adultticket d on e.`adult_id`=d.`adult_id`
+    left join olderticket g on e.`older_id`=g.`older_id`
+    left join childticket f on e.`child_id`=f.`child_id`
+    left join theme l       on e.`theme_id`=l.`theme_id`
+    left join region h      on e.`region_id`=h.`region_id`
+    left join world j       on e.`world_id`=j.`world_id`
+    left join address p     on e.`address_id`=p.`address_idd`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <!-- 连表查询all表 -->
+<select id="selectByPrimaryKeyWithAll" parameterType="java.lang.Integer" resultMap="WithAllResultMap">
+    select 
+    <include refid="All_Column_List" />
+     from scenic e
+   left join adultticket d on e.`adult_id`=d.`adult_id`
+    left join olderticket g on e.`older_id`=g.`older_id`
+    left join childticket f on e.`child_id`=f.`child_id`
+    left join theme l       on e.`theme_id`=l.`theme_id`
+    left join region h      on e.`region_id`=h.`region_id`
+    left join world j       on e.`world_id`=j.`world_id`
+    left join address p     on e.`address_id`=p.`address_idd`
+    where scenic_id = #{scenicId,jdbcType=INTEGER}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from scenic
+    where scenic_id = #{scenicId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.atguigu.crud.bean.ScenicExample">
+    delete from scenic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.crud.bean.Scenic">
+    insert into scenic (scenic_id, world_id, region_id, 
+      address_id, address, theme_id, 
+      is_cheap, Is_recommend, search_num, 
+      older_id, child_id, adult_id, 
+      score, level, type_one, 
+      type_two, type_three, scenic_name, 
+      longitude, latitude, location, 
+      wheel_img_one, wheel_img_two, wheel_img_three, 
+      wheel_img_four, wheel_img_five, scenicpresent_one, 
+      photo_one, scenicpresent_two, photo_two, 
+      photo_three, photo_four)
+    values (#{scenicId,jdbcType=INTEGER}, #{worldId,jdbcType=INTEGER}, #{regionId,jdbcType=INTEGER}, 
+      #{addressId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{themeId,jdbcType=INTEGER}, 
+      #{isCheap,jdbcType=BIT}, #{isRecommend,jdbcType=BIT}, #{searchNum,jdbcType=INTEGER}, 
+      #{olderId,jdbcType=INTEGER}, #{childId,jdbcType=INTEGER}, #{adultId,jdbcType=INTEGER}, 
+      #{score,jdbcType=INTEGER}, #{level,jdbcType=VARCHAR}, #{typeOne,jdbcType=VARCHAR}, 
+      #{typeTwo,jdbcType=VARCHAR}, #{typeThree,jdbcType=VARCHAR}, #{scenicName,jdbcType=VARCHAR}, 
+      #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{wheelImgOne,jdbcType=VARCHAR}, #{wheelImgTwo,jdbcType=VARCHAR}, #{wheelImgThree,jdbcType=VARCHAR}, 
+      #{wheelImgFour,jdbcType=VARCHAR}, #{wheelImgFive,jdbcType=VARCHAR}, #{scenicpresentOne,jdbcType=VARCHAR}, 
+      #{photoOne,jdbcType=VARCHAR}, #{scenicpresentTwo,jdbcType=VARCHAR}, #{photoTwo,jdbcType=VARCHAR}, 
+      #{photoThree,jdbcType=VARCHAR}, #{photoFour,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.crud.bean.Scenic">
+    insert into scenic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="scenicId != null">
+        scenic_id,
+      </if>
+      <if test="worldId != null">
+        world_id,
+      </if>
+      <if test="regionId != null">
+        region_id,
+      </if>
+      <if test="addressId != null">
+        address_id,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="themeId != null">
+        theme_id,
+      </if>
+      <if test="isCheap != null">
+        is_cheap,
+      </if>
+      <if test="isRecommend != null">
+        Is_recommend,
+      </if>
+      <if test="searchNum != null">
+        search_num,
+      </if>
+      <if test="olderId != null">
+        older_id,
+      </if>
+      <if test="childId != null">
+        child_id,
+      </if>
+      <if test="adultId != null">
+        adult_id,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="typeOne != null">
+        type_one,
+      </if>
+      <if test="typeTwo != null">
+        type_two,
+      </if>
+      <if test="typeThree != null">
+        type_three,
+      </if>
+      <if test="scenicName != null">
+        scenic_name,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="wheelImgOne != null">
+        wheel_img_one,
+      </if>
+      <if test="wheelImgTwo != null">
+        wheel_img_two,
+      </if>
+      <if test="wheelImgThree != null">
+        wheel_img_three,
+      </if>
+      <if test="wheelImgFour != null">
+        wheel_img_four,
+      </if>
+      <if test="wheelImgFive != null">
+        wheel_img_five,
+      </if>
+      <if test="scenicpresentOne != null">
+        scenicpresent_one,
+      </if>
+      <if test="photoOne != null">
+        photo_one,
+      </if>
+      <if test="scenicpresentTwo != null">
+        scenicpresent_two,
+      </if>
+      <if test="photoTwo != null">
+        photo_two,
+      </if>
+      <if test="photoThree != null">
+        photo_three,
+      </if>
+      <if test="photoFour != null">
+        photo_four,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="scenicId != null">
+        #{scenicId,jdbcType=INTEGER},
+      </if>
+      <if test="worldId != null">
+        #{worldId,jdbcType=INTEGER},
+      </if>
+      <if test="regionId != null">
+        #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="addressId != null">
+        #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="themeId != null">
+        #{themeId,jdbcType=INTEGER},
+      </if>
+      <if test="isCheap != null">
+        #{isCheap,jdbcType=BIT},
+      </if>
+      <if test="isRecommend != null">
+        #{isRecommend,jdbcType=BIT},
+      </if>
+      <if test="searchNum != null">
+        #{searchNum,jdbcType=INTEGER},
+      </if>
+      <if test="olderId != null">
+        #{olderId,jdbcType=INTEGER},
+      </if>
+      <if test="childId != null">
+        #{childId,jdbcType=INTEGER},
+      </if>
+      <if test="adultId != null">
+        #{adultId,jdbcType=INTEGER},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="typeOne != null">
+        #{typeOne,jdbcType=VARCHAR},
+      </if>
+      <if test="typeTwo != null">
+        #{typeTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="typeThree != null">
+        #{typeThree,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicName != null">
+        #{scenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="wheelImgOne != null">
+        #{wheelImgOne,jdbcType=VARCHAR},
+      </if>
+      <if test="wheelImgTwo != null">
+        #{wheelImgTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="wheelImgThree != null">
+        #{wheelImgThree,jdbcType=VARCHAR},
+      </if>
+      <if test="wheelImgFour != null">
+        #{wheelImgFour,jdbcType=VARCHAR},
+      </if>
+      <if test="wheelImgFive != null">
+        #{wheelImgFive,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicpresentOne != null">
+        #{scenicpresentOne,jdbcType=VARCHAR},
+      </if>
+      <if test="photoOne != null">
+        #{photoOne,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicpresentTwo != null">
+        #{scenicpresentTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="photoTwo != null">
+        #{photoTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="photoThree != null">
+        #{photoThree,jdbcType=VARCHAR},
+      </if>
+      <if test="photoFour != null">
+        #{photoFour,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.atguigu.crud.bean.ScenicExample" resultType="java.lang.Long">
+    select count(*) from scenic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update scenic
+    <set>
+      <if test="record.scenicId != null">
+        scenic_id = #{record.scenicId,jdbcType=INTEGER},
+      </if>
+      <if test="record.worldId != null">
+        world_id = #{record.worldId,jdbcType=INTEGER},
+      </if>
+      <if test="record.regionId != null">
+        region_id = #{record.regionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.addressId != null">
+        address_id = #{record.addressId,jdbcType=INTEGER},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.themeId != null">
+        theme_id = #{record.themeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isCheap != null">
+        is_cheap = #{record.isCheap,jdbcType=BIT},
+      </if>
+      <if test="record.isRecommend != null">
+        Is_recommend = #{record.isRecommend,jdbcType=BIT},
+      </if>
+      <if test="record.searchNum != null">
+        search_num = #{record.searchNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.olderId != null">
+        older_id = #{record.olderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.childId != null">
+        child_id = #{record.childId,jdbcType=INTEGER},
+      </if>
+      <if test="record.adultId != null">
+        adult_id = #{record.adultId,jdbcType=INTEGER},
+      </if>
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.level != null">
+        level = #{record.level,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeOne != null">
+        type_one = #{record.typeOne,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeTwo != null">
+        type_two = #{record.typeTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeThree != null">
+        type_three = #{record.typeThree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicName != null">
+        scenic_name = #{record.scenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longitude != null">
+        longitude = #{record.longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.latitude != null">
+        latitude = #{record.latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.location != null">
+        location = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wheelImgOne != null">
+        wheel_img_one = #{record.wheelImgOne,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wheelImgTwo != null">
+        wheel_img_two = #{record.wheelImgTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wheelImgThree != null">
+        wheel_img_three = #{record.wheelImgThree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wheelImgFour != null">
+        wheel_img_four = #{record.wheelImgFour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wheelImgFive != null">
+        wheel_img_five = #{record.wheelImgFive,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicpresentOne != null">
+        scenicpresent_one = #{record.scenicpresentOne,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photoOne != null">
+        photo_one = #{record.photoOne,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicpresentTwo != null">
+        scenicpresent_two = #{record.scenicpresentTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photoTwo != null">
+        photo_two = #{record.photoTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photoThree != null">
+        photo_three = #{record.photoThree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photoFour != null">
+        photo_four = #{record.photoFour,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update scenic
+    set scenic_id = #{record.scenicId,jdbcType=INTEGER},
+      world_id = #{record.worldId,jdbcType=INTEGER},
+      region_id = #{record.regionId,jdbcType=INTEGER},
+      address_id = #{record.addressId,jdbcType=INTEGER},
+      address = #{record.address,jdbcType=VARCHAR},
+      theme_id = #{record.themeId,jdbcType=INTEGER},
+      is_cheap = #{record.isCheap,jdbcType=BIT},
+      Is_recommend = #{record.isRecommend,jdbcType=BIT},
+      search_num = #{record.searchNum,jdbcType=INTEGER},
+      older_id = #{record.olderId,jdbcType=INTEGER},
+      child_id = #{record.childId,jdbcType=INTEGER},
+      adult_id = #{record.adultId,jdbcType=INTEGER},
+      score = #{record.score,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=VARCHAR},
+      type_one = #{record.typeOne,jdbcType=VARCHAR},
+      type_two = #{record.typeTwo,jdbcType=VARCHAR},
+      type_three = #{record.typeThree,jdbcType=VARCHAR},
+      scenic_name = #{record.scenicName,jdbcType=VARCHAR},
+      longitude = #{record.longitude,jdbcType=VARCHAR},
+      latitude = #{record.latitude,jdbcType=VARCHAR},
+      location = #{record.location,jdbcType=VARCHAR},
+      wheel_img_one = #{record.wheelImgOne,jdbcType=VARCHAR},
+      wheel_img_two = #{record.wheelImgTwo,jdbcType=VARCHAR},
+      wheel_img_three = #{record.wheelImgThree,jdbcType=VARCHAR},
+      wheel_img_four = #{record.wheelImgFour,jdbcType=VARCHAR},
+      wheel_img_five = #{record.wheelImgFive,jdbcType=VARCHAR},
+      scenicpresent_one = #{record.scenicpresentOne,jdbcType=VARCHAR},
+      photo_one = #{record.photoOne,jdbcType=VARCHAR},
+      scenicpresent_two = #{record.scenicpresentTwo,jdbcType=VARCHAR},
+      photo_two = #{record.photoTwo,jdbcType=VARCHAR},
+      photo_three = #{record.photoThree,jdbcType=VARCHAR},
+      photo_four = #{record.photoFour,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.crud.bean.Scenic">
+    update scenic
+    <set>
+      <if test="worldId != null">
+        world_id = #{worldId,jdbcType=INTEGER},
+      </if>
+      <if test="regionId != null">
+        region_id = #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="addressId != null">
+        address_id = #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="themeId != null">
+        theme_id = #{themeId,jdbcType=INTEGER},
+      </if>
+      <if test="isCheap != null">
+        is_cheap = #{isCheap,jdbcType=BIT},
+      </if>
+      <if test="isRecommend != null">
+        Is_recommend = #{isRecommend,jdbcType=BIT},
+      </if>
+      <if test="searchNum != null">
+        search_num = #{searchNum,jdbcType=INTEGER},
+      </if>
+      <if test="olderId != null">
+        older_id = #{olderId,jdbcType=INTEGER},
+      </if>
+      <if test="childId != null">
+        child_id = #{childId,jdbcType=INTEGER},
+      </if>
+      <if test="adultId != null">
+        adult_id = #{adultId,jdbcType=INTEGER},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="typeOne != null">
+        type_one = #{typeOne,jdbcType=VARCHAR},
+      </if>
+      <if test="typeTwo != null">
+        type_two = #{typeTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="typeThree != null">
+        type_three = #{typeThree,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicName != null">
+        scenic_name = #{scenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="wheelImgOne != null">
+        wheel_img_one = #{wheelImgOne,jdbcType=VARCHAR},
+      </if>
+      <if test="wheelImgTwo != null">
+        wheel_img_two = #{wheelImgTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="wheelImgThree != null">
+        wheel_img_three = #{wheelImgThree,jdbcType=VARCHAR},
+      </if>
+      <if test="wheelImgFour != null">
+        wheel_img_four = #{wheelImgFour,jdbcType=VARCHAR},
+      </if>
+      <if test="wheelImgFive != null">
+        wheel_img_five = #{wheelImgFive,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicpresentOne != null">
+        scenicpresent_one = #{scenicpresentOne,jdbcType=VARCHAR},
+      </if>
+      <if test="photoOne != null">
+        photo_one = #{photoOne,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicpresentTwo != null">
+        scenicpresent_two = #{scenicpresentTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="photoTwo != null">
+        photo_two = #{photoTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="photoThree != null">
+        photo_three = #{photoThree,jdbcType=VARCHAR},
+      </if>
+      <if test="photoFour != null">
+        photo_four = #{photoFour,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where scenic_id = #{scenicId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.crud.bean.Scenic">
+    update scenic
+    set world_id = #{worldId,jdbcType=INTEGER},
+      region_id = #{regionId,jdbcType=INTEGER},
+      address_id = #{addressId,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      theme_id = #{themeId,jdbcType=INTEGER},
+      is_cheap = #{isCheap,jdbcType=BIT},
+      Is_recommend = #{isRecommend,jdbcType=BIT},
+      search_num = #{searchNum,jdbcType=INTEGER},
+      older_id = #{olderId,jdbcType=INTEGER},
+      child_id = #{childId,jdbcType=INTEGER},
+      adult_id = #{adultId,jdbcType=INTEGER},
+      score = #{score,jdbcType=INTEGER},
+      level = #{level,jdbcType=VARCHAR},
+      type_one = #{typeOne,jdbcType=VARCHAR},
+      type_two = #{typeTwo,jdbcType=VARCHAR},
+      type_three = #{typeThree,jdbcType=VARCHAR},
+      scenic_name = #{scenicName,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      wheel_img_one = #{wheelImgOne,jdbcType=VARCHAR},
+      wheel_img_two = #{wheelImgTwo,jdbcType=VARCHAR},
+      wheel_img_three = #{wheelImgThree,jdbcType=VARCHAR},
+      wheel_img_four = #{wheelImgFour,jdbcType=VARCHAR},
+      wheel_img_five = #{wheelImgFive,jdbcType=VARCHAR},
+      scenicpresent_one = #{scenicpresentOne,jdbcType=VARCHAR},
+      photo_one = #{photoOne,jdbcType=VARCHAR},
+      scenicpresent_two = #{scenicpresentTwo,jdbcType=VARCHAR},
+      photo_two = #{photoTwo,jdbcType=VARCHAR},
+      photo_three = #{photoThree,jdbcType=VARCHAR},
+      photo_four = #{photoFour,jdbcType=VARCHAR}
+    where scenic_id = #{scenicId,jdbcType=INTEGER}
+  </update>
+</mapper>

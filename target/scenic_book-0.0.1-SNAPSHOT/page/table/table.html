@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	<!-- 表格上面的button -->
+      <div class="row">
+		    <div class="col-md-4 col-md-offset-0">        
+				    <div class="input-group">
+				      <input type="text" class="form-control"  id="scenic_find">
+				      
+				        <button class="btn btn-warning" type="button" id="scenic_find_btn">搜索</button>
+				 
+				    </div>	
+		    </div>
+			<div class="col-md-2 col-md-offset-6">
+				<button class="btn btn-primary" id="scenic_add_btn">新增</button>
+				<button class="btn btn-danger" id="scenic_delete_btn">删除</button>
+			</div>	
+			
+		</div>	
+<!-- 显示表格数据 -->
+<div class="row">
+
+    <div class="col-md-12">
+      <div style="overflow:scroll;">
+        <table class="table table-hover " id="scenic_table" style="min-width:5000px;">
+            <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" id="check_all"/>
+                </th>
+                <th>#</th>
+                 <th>景区名称</th>
+                <th>星级</th>
+                <th>评分</th>
+                <th>境内/境外</th>
+                <th>所属区域</th>
+                <th>所在地区</th>
+                <th>主题类型</th>
+                <th>是否推荐</th>
+                <th>是否低价</th>
+                <th>搜索量</th>
+                <th>标签一</th>
+                <th>标签二</th>
+                <th>标签三</th>
+                <th>成人票价格</th>
+                <th>儿童票价格</th>
+                <th>老人票价格</th>
+                <th>位置坐标</th>
+                <th>纬度</th>
+                <th>经度</th>
+                <th>简介一</th>
+                <th>简介二</th>
+                <!-- <th>轮播图一</th>
+                <th>轮播图二</th>
+                <th>轮播图三</th>
+                <th>轮播图四</th>
+                <th>轮播图五</th>
+                <th>简介图一</th>
+                <th>简介图二</th>
+                <th>简介图三</th>
+                <th>简介图四</th>   -->
+                <th>操作</th>       
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+
+<!-- 显示分页信息 -->
+<div class="row">
+    <!-- 分页文字信息  -->
+    <div class="col-md-6" id="page_info_area" style="margin:20px 0"></div>
+    <!-- 分页条信息 -->
+    <div class="col-md-6" id="page_nav_area">
+
+    </div>
+</div> 
+<script>
+$(document).on("click",".edit_btn",function(){ 
+	
+	//alert("edit");
+	//1、查出部门信息，并显示部门列表
+    getWorld("#scenicUpdateModal #worldName_update");
+	 getAddressnoparam("#scenicUpdateModal #addressName_update");
+	getRegionnoparam("#scenicUpdateModal #regionName_update"); 
+	getTheme("#scenicUpdateModal #themeName_update");  
+	//2、查出员工信息，显示员工信息
+	 scenicsearch($(this).attr("edit-id")); 
+	
+	//3、把员工的id传递给模态框的更新按钮
+	 $("#scenic_update_btn").attr("edit-id",$(this).attr("edit-id"));
+	 $("#scenic_update_btn").attr("adultticket-id",$(this).attr("adultticket-id"));
+	 $("#scenic_update_btn").attr("childticket-id",$(this).attr("childticket-id"));
+	 $("#scenic_update_btn").attr("olderticket-id",$(this).attr("olderticket-id"));
+	$("#scenicUpdateModal").modal({
+		backdrop:"static"
+	}); 
+});  
+
+//单个删除
+$(document).on("click",".delete_btn",function(){
+	//1、弹出是否确认删除对话框
+	var empName = $(this).parents("tr").find("td:eq(2)").text();
+	var scenicId = $(this).attr("del-id");
+	//alert($(this).parents("tr").find("td:eq(1)").text());
+	if(confirm("确认删除【"+empName+"】吗？")){
+		$.ajax({
+		url:"http://localhost:8080/scenic_book/deletescenic/"+scenicId,
+		type:"DELETE",
+		success:function(result){
+			alert(result.msg);
+			//回到本页
+			to_page(currentPage);
+		}
+	});  
+		//确认，发送ajax请求删除即可
+		 
+	}
+});
+</script>
+	</body>
+</html>

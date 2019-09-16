@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="scenic_book:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="scenic_book-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="scenic_book:war exploded" />
+    </root>
+  </artifact>
+</component>
