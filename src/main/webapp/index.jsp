@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Insert title here</title><!--西瓜太郎-->
 
 <%
 	pageContext.setAttribute("APP_PATH", request.getContextPath());
