@@ -9,7 +9,7 @@
 %>
 
 
-<link rel="stylesheet" type="text/css" href="${APP_PATH }/css/1common/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="${APP_PATH }/css/2common/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="${APP_PATH }/css/common/bootstrap-table.css" />
   <link rel="stylesheet" type="text/css" href="${APP_PATH }/css/common/jquery-ui-1.10.0.custom.css" />
   <link rel="stylesheet" type="text/css" href="${APP_PATH }/css/templatemo/templatemo_main.css" />
