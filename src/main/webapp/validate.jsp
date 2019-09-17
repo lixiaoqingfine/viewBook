@@ -2,15 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@page import="java.awt.image.BufferedImage"%>
 <%@page import="java.awt.Graphics2D"%>
-<%@page import="1111java.awt.Color"%>
+<%@page import="2222java.awt.Color"%>
 <%@page import="java.awt.Font"%>
 <%@page import="javax.imageio.ImageIO"%>  
 <%@page import="java.util.Random"%> 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html>2222
 <head>
-<meta http-equiv="1111Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
