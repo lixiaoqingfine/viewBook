@@ -10,8 +10,8 @@
 
 <!--2222-->
 <link rel="stylesheet" type="text/css" href="${APP_PATH }/css/common/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="${APP_PATH }/css/common/bootstrap-table.css" />
-  <link rel="stylesheet" type="text/css" href="${APP_PATH }/css/common/jquery-ui-1.10.0.custom.css" />
+  <link rel="stylesheet" type="t1ext/css" href="${APP_PATH }/css/common/bootstrap-table.css" />
+  <link rel="stylesheet" type="t2ext/css" href="${APP_PATH }/css/common/jquery-ui-1.10.0.custom.css" />
   <link rel="stylesheet" type="text/css" href="${APP_PATH }/css/templatemo/templatemo_main.css" />
   <!--动态标签页的样式-->
   <link rel="stylesheet" type="text/css" href="${APP_PATH }/css/ui-tabs/ui-tabs.css" />
